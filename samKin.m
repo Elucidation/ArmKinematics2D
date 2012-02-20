@@ -1,5 +1,5 @@
 n = 100;
-x = linspace(0,360,n);
+x = linspace(0,90,n);
 
 
 trail = zeros(3,n); % Trail of end effector
@@ -15,7 +15,10 @@ for i = 1:n
     trail(:,i) = P(1:3,end);
 
     % Graphics
-    plot3(P(1,:),P(2,:),P(3,:),'bo-', trail(1,:),trail(2,:),trail(3,:),'r-');
+    plot3(P(1,:),P(2,:),P(3,:),'bo-', trail(1,1:i),trail(2,1:i),trail(3,1:i),'r-');
+    xlabel('x (meters)');
+    ylabel('y (meters)');
+    zlabel('z (meters)');
 
     axis([-2 2 -2 2 -2 2]) % m
     pause(0.01);
