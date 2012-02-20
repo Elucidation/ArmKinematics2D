@@ -25,7 +25,7 @@ for i = 1:n
     % [ twist1 rotate1 twist2 rotate2 twist3 rotate3 twist4 ]
     
     % Full LWA3
-    theta = [0 x(i) x(i) x(i) 0 x(i) 0]; % degrees
+    theta = [0 x(i) 3*x(i) x(i) 0 x(i) 0]; % degrees
     
     % Test case 3 joints, twist-shoulder rotate-elbow twist-wrist
     %theta = [0 x(i) 0]; % degrees
