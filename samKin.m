@@ -8,7 +8,7 @@ for i = 1:n
     % Joint Angles
     % [ 1 2 3 4 5 6 7 ]
     % [ twist1 rotate1 twist2 rotate2 twist3 rotate3 twist4 ]
-    theta = [0 0 x(i) x(i) 0 0 0]; % degrees
+    theta = [3*x(i) 4*x(i) x(i) x(i) 0 x(i) 0]; % degrees
 
     % Get Joint Positions
     P = getJointPositions(theta);
