@@ -3,6 +3,14 @@ function T = getTransforms(thetas,L)
 % Returns 7 Transform matrices
 % T_01 T_12 ... T_67
 
+% The system is built to model that of a Schunk Arm
+% Each joint is a combination of two motors for twist and rotate
+% so T_01 and T_12 are one joint
+% T_23 T34, T45 T56, 
+% T7 for wrist rotate
+
+% Must be same number of thetas and lengths
+assert(length(thetas) == length(L));
 
 % Theta cos/sin's
 c = cosd(thetas); %c1 c2 c3 ...
