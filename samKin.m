@@ -1,36 +1,55 @@
-L = [5 3]; % link lengths from base to tip
-theta = [45 0]; % angles in degrees of joints
+% link lengths from base to tip
+% [ L12 L34 L56 L7 ]
+L = [0.250 0.328 0.2765 0.171]; % m
 
+% Motor Weights
+% M1 - M6
+M = [3.6 3.6 2 2 1.2 1]; % kg
 
-c = cosd((theta)); %c1 c12 c123...
-s = sind((theta)); %s1 s12 s123...
+% Joint Angles
+% [ 1 2 3 4 5 6 7 ]
+theta = [0 0 0 90 0 0 0]; % degrees
 
+c = cosd(theta); %c1 c2 c3 ...
+s = sind(theta); %s1 s2 s3 ...
 
-% Base--joint1-->elbow--joint2-->End_Effector
+% Transform Matrices
+% [T_01 T_12 T_23 T_34 T_45 T_56 T_67]
+T = zeros(4,4,7);
+% T(:,:,1) = T_01
+% T(:,:,2) = T_12
+% ...
+for i = 1:7
+    % Odds % T_01 T_23 T_45 T_67
+    if (mod(i,2)~=0) 
+        T(:,:,i) = [c(i)    -s(i)   0       0     ; ...
+                    0       0       1       -L(ceil(i/2)) ; ...
+                    -s(i)   -c(i)   0       0     ; ...
+                    0       0       0       1    ];
+    % Evens % T_12 T_34 T_56
+    else
+        T(:,:,i) = [c(i)    -s(i)   0       0     ; ...
+                    0       0       -1      0     ; ...
+                    s(i)	c(i)	0       0     ; ...
+                    0       0       0       1    ];
+    end
+end
 
-% Rotation & offset of joint1
-T_01 = [c(1) -s(1) 0; ...
-        s(1) c(1)  0; ...
-        0    0     1];
+% base to x Transform Matrices
+% [T_01 T_02 T_03 T_04 T_05 T_06 T_07]
+T_0x = zeros(4,4,7);
+T_0x(:,:,1) = T(:,:,1);
+for i = 2:7
+    T_0x(:,:,i) = T_0x(:,:,i-1)*T(:,:,i);
+end
 
-% Rotation and offset of joint 2
-T_12 = [c(2) -s(2) L(1); ...
-        s(2) c(2)  0; ...
-        0    0     1];
+% Joint Positions
+P = [zeros(3,7); ones(1,7)];
+for i = 1:7
+    P(:,i) = T_0x(:,:,i) * P(:,i);
+end
 
-% Offset to End-Effector
-T_23 = [1   0   L(2); ...
-        0   1   0; ...
-        0	0   1];
-%
-
-T_02 = T_01*T_12;
-T_03 = T_01*T_12*T_23;
-
-base_pos = [0 0 1]';
-elbow_pos = T_02 * [0 0 1]';
-EE_pos = T_03 * [0 0 1]';
-
-arm = [base_pos elbow_pos EE_pos];
-
-plot(arm(1,:),arm(2,:),'bo-');
+% Graphics
+plot(0,0,'ro',P(1,:),P(2,:),'bo-')
+axis([-2 2 -2 2]) % m
+axis equal
