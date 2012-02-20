@@ -1,10 +1,10 @@
 n = 100;
-x = linspace(0,90,n);
+x = linspace(0,45,n);
 
 WORKSPACE = 1.1 * [-1 1 -1 1 -1 1];
 WORKSPACE_2D = 1.1 * [-1 1 -1 1];
 
-DRAW_2D = 0; % else 3D
+DRAW_2D = 1; % else 3D
 
 trail = zeros(3,n); % Trail of end effector
 
