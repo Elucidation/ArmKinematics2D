@@ -18,11 +18,11 @@ s = sind(thetas); %s1 s2 s3 ...
 
 % Transform Matrices
 % [T_01 T_12 T_23 T_34 T_45 T_56 T_67]
-T = zeros(4,4,7);
+T = zeros(4,4,length(thetas));
 % T(:,:,1) = T_01
 % T(:,:,2) = T_12
 % ...
-for i = 1:7
+for i = 1:length(thetas)
     % Odds % T_01 T_23 T_45 T_67
     if (mod(i,2)~=0) 
         T(:,:,i) = [c(i)    -s(i)   0       0     ; ...
