@@ -1,5 +1,5 @@
 n = 100;
-x = linspace(0,90,n);
+x = linspace(0,0,n);
 
 WORKSPACE = 1.1 * [-1 1 -1 1 -1 1];
 WORKSPACE_2D = 1.1 * [-1 1 -1 1];
@@ -11,7 +11,7 @@ trail = zeros(3,n); % Trail of end effector
 % link lengths of joints from base to tip
 % [ L12 L34 L56 L7 ] changed to 
 
-% Full LWA3
+% Full LWA3 arm
 %   [  L12  0  L34  0   L56  0   L7  ]
 L = [ 0.250 0 0.328 0 0.2765 0 0.171 ]; % m
 

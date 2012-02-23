@@ -1,4 +1,4 @@
-function Torques = getTorques(P)
+function Torques = getAbsTorques(P)
 % Returns Torques on joints due to motor weights on arm
 
 % Motor Weights
