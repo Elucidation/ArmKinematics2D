@@ -12,6 +12,6 @@ H0(:,:,1) = H(:,:,1); % T0_(0->1) = T_0->1
 for i = 2:n
     % T0_(0->i) = T0_(0->i-1) * T_(i-1->i)
     % example: To02 = To01 * T12
-    H0(:,:,i) = H(:,:,i-1)+H(:,:,i)+2*W(:,:,i-1)*W(:,:,i-1);%need to check if .* or *
+    H0(:,:,i) = H0(:,:,i-1)+H(:,:,i)+2*W(:,:,i-1)*W(:,:,i-1);%need to check if .* or *
 end
 end

@@ -1,6 +1,6 @@
 function H = getAccTransforms(thetadotdot,W)
 
-for i = 1:length(thetas)
+for i = 1:length(thetadotdot)
     % Odds % T_01 T_23 T_45 T_67
     if (mod(i,2)~=0) 
         H(:,:,i) = [0    -thetadotdot(i)   0       0     ; ...
